@@ -136,3 +136,27 @@ const pretty = pino({
 		search: 'foo == `bar`'
 	}
 });
+
+const pretty = pino({
+    level: 'debug',
+    redact: { paths: ['hostname'], remove: true },
+    prettyPrint: {
+        translateTime: true,
+        format: [
+            { delimiter: '[', requiresAll: ['time'] },
+            { key: 'time' },
+            { delimiter: '] ', requiresAll: ['time'] },
+            { key: 'level' },
+            { delimiter: ' (' },
+            { key: 'pid' },
+            { delimiter: ') [' },
+            { key: 'app' },
+            { delimiter: '] [' },
+            { key: 'class' },
+            { delimiter: '] ' },
+            { delimiter: '[', requiresAll: ['fn'] },
+            { key: 'fn' },
+            { delimiter: '] ', requiresAll: ['fn'] }
+        ]
+    }
+});

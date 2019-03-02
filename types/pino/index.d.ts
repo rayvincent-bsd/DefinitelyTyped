@@ -260,6 +260,14 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * A tokenized representation of each element in the log up to when the message is appended.
+         */
+        format?: Array<KeyToken | DelimiterToken>;
+        /**
+         * An array of keys that will be ignored from the output
+         */
+        ignoreKeys?: string[];
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
         colorize?: boolean;
@@ -287,6 +295,16 @@ declare namespace P {
 
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
+
+    interface KeyToken {
+        key: string;
+    }
+
+    interface DelimiterToken {
+        delimiter: string;
+        requiresOneOfKeys?: string[];
+        requiresAllKeys?: string[];
+    }
 
     interface LogDescriptor {
         pid: number;
